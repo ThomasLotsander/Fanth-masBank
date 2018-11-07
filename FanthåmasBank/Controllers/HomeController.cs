@@ -12,7 +12,9 @@ namespace FanthåmasBank.Controllers
     {
         public IActionResult Index()
         {
-            return View();
+            
+            AllCustomers data = AllCustomers.Instance();
+            return View(data.Customers);
         }
 
        
