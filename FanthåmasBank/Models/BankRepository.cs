@@ -8,14 +8,22 @@ namespace FanthåmasBank.Models
     public class BankRepository
     {
 
-        public bool Withdraw(Account account, decimal amount)
+        public decimal Withdraw(Account account, decimal amount)
         {
-            return true;
+            if (account.Amount < amount)
+            {
+                return account.Amount;
+            }
+            return account.Amount - amount;
         }
 
-        public bool Deposit(Account account, decimal amount)
+        public decimal Deposit(Account account, decimal amount)
         {
-            return true;
+            if (amount <= 0)
+            {
+                return account.Amount;
+            }
+            return account.Amount + amount;
         }
     }
 }
