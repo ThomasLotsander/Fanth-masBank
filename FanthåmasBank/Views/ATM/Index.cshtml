@@ -1,0 +1,25 @@
+﻿@model FanthåmasBank.Models.ViewModels.ATMViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+
+
+<div class="container">
+    
+    <form asp-action="withdraw" method="post">
+        <label>Account number</label>
+        <input asp-for="AccountNumber" type="text" />
+
+        <label>Amount</label>
+        <input asp-for="Amount" type="number" />
+
+        <input type="submit" />
+        <a class="btn btn-primary" asp-action="Withdraw" asp-route-accountNumber="@Model.AccountNumber" asp-route-amount="@Model.Amount">Withdraw</a>
+        <a class="btn btn-success" asp-action="Deposit">Deposit</a>
+    </form>
+
+</div>
