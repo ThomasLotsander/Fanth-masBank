@@ -15,20 +15,32 @@ namespace FanthåmasBank.Controllers
         {
             bank = new BankRepository();
         }
-        public IActionResult Index() => View();
-        
+
+        public IActionResult Index(string accountNumber = "", decimal amount = 0)
+        {
+            ATMViewModel model = new ATMViewModel() { Amount = amount, AccountNumber = accountNumber };
+            return View(model);
+        }
+
 
         [HttpPost]
         public IActionResult Withdraw(string accountNumber, decimal amount)
         {
-
             Account account = GetAccount(accountNumber);
             if (account != null)
             {
-               decimal currentValue = bank.Withdraw(account, amount);
-            }            
+                if (account.Amount < amount)
+                {
+                    TempData["response"] = "Withdrawl value can't be larger then your current amount. Current amount: " + account.Amount;
+                }
+                else
+                {
+                    decimal currentValue = bank.Withdraw(account, amount);
+                    TempData["response"] = $"New amount: {currentValue}";
+                }
+            }
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new { accountNumber, amount });
         }
 
         [HttpPost]
@@ -37,15 +49,29 @@ namespace FanthåmasBank.Controllers
             Account account = GetAccount(accountNumber);
             if (account != null)
             {
-                decimal currentValue = bank.Deposit(account, amount);
+
+                if (account.Amount <= 0)
+                {
+                    TempData["response"] = "Deposit value need to be bigger then 0";
+                }
+                else
+                {
+                    decimal currentValue = bank.Deposit(account, amount);
+                    TempData["response"] = $"New amount: {currentValue}";
+                }
             }
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new { accountNumber, amount });
         }
 
         private Account GetAccount(string accountNumber)
         {
             AllCustomers instance = AllCustomers.Instance();
-            return instance.Customers.Select(c => c.Accounts.FirstOrDefault(x => x.AccountNumber.ToString() == accountNumber)).FirstOrDefault();
+            Account account = instance.Customers.Select(c => c.Accounts.FirstOrDefault(x => x.AccountNumber.ToString() == accountNumber)).FirstOrDefault();
+            if (account == null)
+            {
+                TempData["response"] = "The account number you entered was incorrect";
+            }
+            return account;
         }
     }
 }

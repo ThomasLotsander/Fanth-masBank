@@ -10,12 +10,14 @@
 
 <div class="container">
     
+    <span class="bg-danger"> @TempData["response"]</span>
+
     <form asp-route-accountNumber="" asp-route-amount="" method="post">
         <label>Account number</label>
-        <input name="accountNumber" type="text" />
+        <input name="accountNumber" type="text" value="@Model.AccountNumber"/>
 
         <label>Amount</label>
-        <input name="amount" type="number" />
+        <input name="amount" type="number" value="@Model.Amount"/>
 
         <input type="submit" name="withdraw" formaction="ATM/Withdraw" value="Withdraw"/>
         <input type="submit" name="deposit" formaction="ATM/Deposit" value="Deposit"/>        

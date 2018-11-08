@@ -7,14 +7,14 @@ namespace FanthåmasBank.Models
 {
     public class BankRepository
     {
-
         public decimal Withdraw(Account account, decimal amount)
         {
             if (account.Amount < amount)
             {
                 return account.Amount;
             }
-            return account.Amount - amount;
+            account.Amount -= amount;
+            return account.Amount;
         }
 
         public decimal Deposit(Account account, decimal amount)
@@ -23,7 +23,8 @@ namespace FanthåmasBank.Models
             {
                 return account.Amount;
             }
-            return account.Amount + amount;
+            account.Amount += amount;
+            return account.Amount;
         }
     }
 }
