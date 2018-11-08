@@ -10,16 +10,15 @@
 
 <div class="container">
     
-    <form asp-action="withdraw" method="post">
+    <form asp-route-accountNumber="" asp-route-amount="" method="post">
         <label>Account number</label>
-        <input asp-for="AccountNumber" type="text" />
+        <input name="accountNumber" type="text" />
 
         <label>Amount</label>
-        <input asp-for="Amount" type="number" />
+        <input name="amount" type="number" />
 
-        <input type="submit" />
-        <a class="btn btn-primary" asp-action="Withdraw" asp-route-accountNumber="@Model.AccountNumber" asp-route-amount="@Model.Amount">Withdraw</a>
-        <a class="btn btn-success" asp-action="Deposit">Deposit</a>
+        <input type="submit" name="withdraw" formaction="ATM/Withdraw" value="Withdraw"/>
+        <input type="submit" name="deposit" formaction="ATM/Deposit" value="Deposit"/>        
     </form>
 
 </div>

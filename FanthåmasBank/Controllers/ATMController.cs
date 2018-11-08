@@ -10,26 +10,42 @@ namespace FanthåmasBank.Controllers
 {
     public class ATMController : Controller
     {
-        public IActionResult Index()
+        BankRepository bank;
+        public ATMController()
         {
-            ATMViewModel model = new ATMViewModel();
-            return View(model);
+            bank = new BankRepository();
+        }
+        public IActionResult Index() => View();
+        
+
+        [HttpPost]
+        public IActionResult Withdraw(string accountNumber, decimal amount)
+        {
+
+            Account account = GetAccount(accountNumber);
+            if (account != null)
+            {
+               decimal currentValue = bank.Withdraw(account, amount);
+            }            
+
+            return RedirectToAction("Index");
         }
 
         [HttpPost]
-        public void Withdraw(ATMViewModel model)
+        public IActionResult Deposit(string accountNumber, decimal amount)
         {
-            AllCustomers instance = AllCustomers.Instance();
-
-            var account = instance.Customers.Select(c => c.Accounts.FirstOrDefault(x => x.AccountNumber.ToString() == model.AccountNumber)).FirstOrDefault();
-
-            BankRepository reo = new BankRepository();
-            reo.Withdraw(account, model.Amount);
+            Account account = GetAccount(accountNumber);
+            if (account != null)
+            {
+                decimal currentValue = bank.Deposit(account, amount);
+            }
+            return RedirectToAction("Index");
         }
 
-        public void Deposit(string accountNumberm, decimal amount)
+        private Account GetAccount(string accountNumber)
         {
-
+            AllCustomers instance = AllCustomers.Instance();
+            return instance.Customers.Select(c => c.Accounts.FirstOrDefault(x => x.AccountNumber.ToString() == accountNumber)).FirstOrDefault();
         }
     }
 }
