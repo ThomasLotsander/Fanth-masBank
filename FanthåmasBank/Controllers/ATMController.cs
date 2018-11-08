@@ -36,7 +36,7 @@ namespace FanthåmasBank.Controllers
                 else
                 {
                     decimal currentValue = bank.Withdraw(account, amount);
-                    TempData["response"] = $"New amount: {currentValue}";
+                    TempData["responseSuccess"] = $"New amount: {currentValue}";
                 }
             }
 
@@ -57,7 +57,7 @@ namespace FanthåmasBank.Controllers
                 else
                 {
                     decimal currentValue = bank.Deposit(account, amount);
-                    TempData["response"] = $"New amount: {currentValue}";
+                    TempData["responseSuccess"] = $"New amount: {currentValue}";
                 }
             }
             return RedirectToAction("Index", new { accountNumber, amount });
@@ -66,7 +66,22 @@ namespace FanthåmasBank.Controllers
         private Account GetAccount(string accountNumber)
         {
             AllCustomers instance = AllCustomers.Instance();
-            Account account = instance.Customers.Select(c => c.Accounts.FirstOrDefault(x => x.AccountNumber.ToString() == accountNumber)).FirstOrDefault();
+            List<Account> accounts = new List<Account>();
+            Account account = null;
+
+            foreach (var item in instance.Customers)
+            {
+                foreach (var acc in item.Accounts)
+                {
+                    if (acc.AccountNumber == accountNumber)
+                    {
+                        account = acc;
+                    }
+                }
+            }
+
+            // Tips på hur jag kan one-lina båda foreach-looparna uppskattas. 
+            // Account account = instance.Customers.Select(c => c.Accounts.FirstOrDefault(x => x.AccountNumber == accountNumber)).FirstOrDefault();
             if (account == null)
             {
                 TempData["response"] = "The account number you entered was incorrect";

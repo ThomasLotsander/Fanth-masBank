@@ -19,11 +19,11 @@ namespace FanthåmasBank.Models
                     Name = "Thomas",
                     Accounts = new List<Account>(){
                         new Account(){
-                            AccountNumber = Guid.NewGuid(),
+                            AccountNumber = "123-4",
                             Amount = 100},
                         new Account()
                         {
-                            AccountNumber = Guid.NewGuid(),
+                            AccountNumber = "123-1",
                             Amount = 200
                         }
                     }
@@ -36,11 +36,11 @@ namespace FanthåmasBank.Models
                     Name = "Micke",
                     Accounts = new List<Account>(){
                         new Account(){
-                            AccountNumber = Guid.NewGuid(),
+                            AccountNumber = "123-2",
                             Amount = 13123},
                      new Account()
                         {
-                            AccountNumber = Guid.NewGuid(),
+                            AccountNumber = "123-3",
                             Amount = 43
                         }
                     }
@@ -53,11 +53,11 @@ namespace FanthåmasBank.Models
                     Name = "Markus",
                     Accounts = new List<Account>(){
                         new Account(){
-                            AccountNumber = Guid.NewGuid(),
+                            AccountNumber = "123-5",
                             Amount = 10000},
                      new Account()
                         {
-                            AccountNumber = Guid.NewGuid(),
+                            AccountNumber = "123-6",
                             Amount = 5124
                         }
                     }
@@ -70,11 +70,11 @@ namespace FanthåmasBank.Models
                 Name = "Jocke",
                 Accounts = new List<Account>(){
                         new Account(){
-                            AccountNumber = Guid.NewGuid(),
+                            AccountNumber = "123-7",
                             Amount = 23},
                         new Account()
                         {
-                            AccountNumber = Guid.NewGuid(),
+                            AccountNumber = "123-8",
                             Amount = 1515
                         }
                 }
