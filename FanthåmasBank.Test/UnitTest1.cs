@@ -13,7 +13,7 @@ namespace FanthåmasBank.Test
         public void Test_Withdraw(decimal expected, decimal withdrawAmount, decimal currentAmount)
         {
             BankRepository reposetory = new BankRepository();
-            Account account = new Account() { AccountNumber = Guid.NewGuid(), Amount = currentAmount};
+            Account account = new Account() { AccountNumber = "123-3", Amount = currentAmount};
 
             decimal actual = reposetory.Withdraw(account, withdrawAmount);
 
@@ -28,7 +28,7 @@ namespace FanthåmasBank.Test
         public void Test_Deposit(decimal expected, decimal depositAmount, decimal currentAmount)
         {
             BankRepository reposetory = new BankRepository();
-            Account account = new Account() { AccountNumber = Guid.NewGuid(), Amount = currentAmount };
+            Account account = new Account() { AccountNumber = "123-22", Amount = currentAmount };
 
             decimal actual = reposetory.Deposit(account, depositAmount);
 
