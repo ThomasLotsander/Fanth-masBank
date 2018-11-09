@@ -26,7 +26,7 @@ namespace FanthåmasBank.Controllers
         [HttpPost]
         public IActionResult Withdraw(string accountNumber, decimal amount)
         {
-            Account account = GetAccount(accountNumber);
+            Account account = bank.GetAccount(accountNumber);
             if (account != null)
             {
                 if (account.Amount < amount)
@@ -39,6 +39,10 @@ namespace FanthåmasBank.Controllers
                     TempData["responseSuccess"] = $"New amount: {currentValue}";
                 }
             }
+            else
+            {
+                TempData["response"] = "The account number you entered was incorrect";
+            }
 
             return RedirectToAction("Index", new { accountNumber, amount });
         }
@@ -46,7 +50,7 @@ namespace FanthåmasBank.Controllers
         [HttpPost]
         public IActionResult Deposit(string accountNumber, decimal amount)
         {
-            Account account = GetAccount(accountNumber);
+            Account account = bank.GetAccount(accountNumber);
             if (account != null)
             {
 
@@ -60,33 +64,11 @@ namespace FanthåmasBank.Controllers
                     TempData["responseSuccess"] = $"New amount: {currentValue}";
                 }
             }
-            return RedirectToAction("Index", new { accountNumber, amount });
-        }
-
-        private Account GetAccount(string accountNumber)
-        {
-            AllCustomers instance = AllCustomers.Instance();
-            List<Account> accounts = new List<Account>();
-            Account account = null;
-
-            foreach (var item in instance.Customers)
-            {
-                foreach (var acc in item.Accounts)
-                {
-                    if (acc.AccountNumber == accountNumber)
-                    {
-                        account = acc;
-                    }
-                }
-            }
-
-            // Tips på hur jag kan one-lina båda foreach-looparna uppskattas. 
-            // Account account = instance.Customers.Select(c => c.Accounts.FirstOrDefault(x => x.AccountNumber == accountNumber)).FirstOrDefault();
-            if (account == null)
+            else
             {
                 TempData["response"] = "The account number you entered was incorrect";
             }
-            return account;
-        }
+            return RedirectToAction("Index", new { accountNumber, amount });
+        }       
     }
 }
