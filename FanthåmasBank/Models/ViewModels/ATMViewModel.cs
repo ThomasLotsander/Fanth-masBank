@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace FanthåmasBank.Models
+namespace FanthåmasBank.Models.ViewModels
 {
-    public class Account
+    public class ATMViewModel
     {
-        public string AccountNumber { get; set; }
         public decimal Amount { get; set; }
-
+        public string AccountNumber { get; set; }
     }
 }

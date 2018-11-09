@@ -1,0 +1,28 @@
+﻿@model FanthåmasBank.Models.ViewModels.ATMViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>ATM</h2>
+
+
+
+<div class="container">
+    
+    <span class="bg-danger"> @TempData["response"]</span>
+    <span class="bg-success"> @TempData["responseSuccess"]</span>
+    <span asp-validation-for="Amount" class="bg-danger"></span>
+
+    <form asp-route-accountNumber="" asp-route-amount="" method="post">
+        <label>Account number</label>
+        <input name="accountNumber" type="text" value="@Model.AccountNumber"/>
+
+        <label>Amount</label>
+        <input name="amount" min="1"  type="number" value="@Model.Amount"/>
+
+        <input type="submit" name="withdraw" formaction="ATM/Withdraw" value="Withdraw"/>
+        <input type="submit" name="deposit" formaction="ATM/Deposit" value="Deposit"/>        
+    </form>
+
+</div>
