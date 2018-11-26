@@ -7,8 +7,10 @@ namespace FanthåmasBank.Models.ViewModels
 {
     public class EmailViewModel
     {
-        public string Apikey { get; set; }
-        public string Username { get; set; }
+        public List<Customer> Customers { get; set; }
+        public string ToEmail { get; set; }
+        public string CustomerName { get; set; }
+        public int CustomerId { get; set; }
 
 
     }

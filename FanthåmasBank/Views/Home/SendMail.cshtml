@@ -5,7 +5,25 @@
 
 <h2>SendMail</h2>
 
+@foreach (var customer in Model.Customers)
+{
+    <form class="emailForm" asp-action="SendMail" method="post">
+        <input hidden asp-for="@Model.CustomerId" value="@customer.Id" />
+        <input hidden asp-for="@Model.CustomerName" value="@customer.Name" />
+        <label>Customer: @customer.Name</label><br />
+        <label>Send customer as Email: </label>
+        <input type="email" placeholder="example: test@mail.com" required asp-for="@Model.ToEmail" />
+        <input type="submit" class="btn btn-primary" value="Send email" />
+    </form>
+}
+<span>@TempData["message"]</span>
 
-<p>Api key: @Model.Apikey</p>
+<style>
 
-<p>Username: @Model.Username</p>
+    .emailForm {
+        margin: 15px;
+        box-shadow: 3px 3px 6px;
+        padding: 15px;
+        width: fit-content;
+    }
+</style>
