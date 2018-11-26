@@ -45,32 +45,32 @@ namespace FanthåmasBank.Controllers
             var password = config.GetValue<string>("Email:ApiKey");
             var username = config.GetValue<string>("Email:Username");
             // If Stage / Integration
-            //if (environment.IsEnvironment("Integration") || environment.IsEnvironment("Stage") || environment.IsDevelopment())
-            //{
+            if (environment.IsEnvironment("Integration") || environment.IsEnvironment("Stage") || environment.IsDevelopment())
+            {
                 
-            //    SmtpClient smtp = new SmtpClient("smtp.mailtrap.io", 2525) // hostname, port
-            //    {
+                SmtpClient smtp = new SmtpClient("smtp.mailtrap.io", 2525) // hostname, port
+                {
                     
-            //        // OBS! Skapa konto själv på mailtrap.io och hämta ditt eget username och password.
-            //        Credentials = new NetworkCredential(username, password), // username, password
+                    // OBS! Skapa konto själv på mailtrap.io och hämta ditt eget username och password.
+                    Credentials = new NetworkCredential(username, password), // username, password
 
-            //        EnableSsl = true
-            //    };
-            //    smtp.Send("FromTest@example.se", "ToTest@example.se", "Rubrik", "content");
-            //}
-            //// If Production
-            //else if (environment.IsProduction()) 
-            //{
-            //    var client = new SendGridClient(password);
-            //    var from = new EmailAddress("thomaslotsander@test.com", "Thomas lotsander");
-            //    var subject = "Sending with SendGrid is working";
-            //    var to = new EmailAddress("thomaslotsander@gmail.com", "Example User");
-            //    var plainTextContent = "and easy to do anywhere, even with C#";
-            //    var htmlContent = "<strong>and easy to do anywhere, even with C#</strong>";
-            //    var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
-            //    var response = await client.SendEmailAsync(msg);
+                    EnableSsl = true
+                };
+                smtp.Send("FromTest@example.se", "ToTest@example.se", "Rubrik", "content");
+            }
+            // If Production
+            else if (environment.IsProduction()) 
+            {
+                var client = new SendGridClient(password);
+                var from = new EmailAddress("thomaslotsander@test.com", "Thomas lotsander");
+                var subject = "Sending with SendGrid is working";
+                var to = new EmailAddress("thomaslotsander@gmail.com", "Example User");
+                var plainTextContent = "and easy to do anywhere, even with C#";
+                var htmlContent = "<strong>and easy to do anywhere, even with C#</strong>";
+                var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
+                var response = await client.SendEmailAsync(msg);
 
-            //}
+            }
 
 
 
