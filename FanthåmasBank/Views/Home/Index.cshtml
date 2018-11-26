@@ -15,17 +15,19 @@
         <tbody>
             @foreach (var item in Model)
             {
-                <tr>
-                    <td class="pull-right">@item.Id</td>
-                    <td>@item.Name</td>
+            <tr>
+                <td class="pull-right">@item.Id</td>
+                <td>@item.Name</td>
 
-                    @foreach (var account in item.Accounts)
-                    {
-                        
-                        <td >@account.Amount</td>
-                        <td>@account.AccountNumber</td>
-                    }
-                </tr>
+                @foreach (var account in item.Accounts)
+                {
+
+                    <td>@account.Amount</td>
+                    <td>@account.AccountNumber</td>
+                }
+                <td><a asp-action="SendMail" asp-controller="Home" >Send mail</a></td>
+            </tr>
+                
             }
         </tbody>
     </table>
